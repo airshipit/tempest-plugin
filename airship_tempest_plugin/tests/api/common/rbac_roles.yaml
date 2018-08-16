@@ -1,0 +1,13 @@
+shipyard:
+  get_actions:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  get_configdocs:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  get_workflows:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
