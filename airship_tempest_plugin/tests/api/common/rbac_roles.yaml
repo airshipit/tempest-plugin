@@ -11,3 +11,18 @@ shipyard:
     - admin
     - admin_ucp
     - admin_ucp_viewer
+  post_configdocs:
+    - admin
+    - admin_ucp
+  get_configdocs_within_collection:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  get_renderedconfigdocs:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  post_commitconfigdocs:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
