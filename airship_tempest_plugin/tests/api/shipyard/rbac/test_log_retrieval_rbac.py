@@ -22,26 +22,18 @@ from tempest.lib import decorators
 from tempest.lib import exceptions
 
 
-class AirflowMonitoringRbacTest(rbac_base.BaseShipyardRbacTest):
+class LogRetrievalRbacTest(rbac_base.BaseShipyardRbacTest):
 
     @rbac_rule_validation.action(
         service="shipyard",
-        rules=["workflow_orchestrator:list_workflows"])
-    @decorators.idempotent_id('fc75a269-04cb-4a8d-a627-907f72081b8a')
-    def test_list_workflows(self):
-        with self.rbac_utils.override_role(self):
-            self.shipyard_airflow_monitoring_client.list_workflows()
-
-    @rbac_rule_validation.action(
-        service="shipyard",
-        rules=["workflow_orchestrator:get_workflow"])
-    @decorators.idempotent_id('1679c5fa-571a-4af8-8f14-ca0c0a49761b')
-    def test_get_workflow(self):
+        rules=["workflow_orchestrator:get_action_step_logs"])
+    @decorators.idempotent_id('5fd2c572-a226-482d-bdce-70d3ffcd7495')
+    def test_get_action_step_logs(self):
         with self.rbac_utils.override_role(self):
             # As this is a RBAC test, we only care about whether the role has
             # permission or not. Role permission is checked prior to validating
             # the post body, therefore we will ignore a BadRequest exception
             try:
-                self.shipyard_airflow_monitoring_client.get_workflow()
+                self.shipyard_log_retrieval_client.get_action_step_logs()
             except exceptions.BadRequest:
                 pass

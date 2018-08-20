@@ -24,7 +24,7 @@ ServiceAvailableGroup = [
 ]
 
 shipyard_group = cfg.OptGroup(name='shipyard',
-                         title='Shipyard service options')
+                              title='Shipyard service options')
 
 ShipyardGroup = [
     cfg.StrOpt('endpoint_type',
@@ -36,10 +36,9 @@ ShipyardGroup = [
                help="Catalog type of the Shipyard service"),
 ]
 
+
 def get_opt_lists(self, conf):
-    """
-    Get a list of options for sample config generation
-    """
+    """Get a list of options for sample config generation"""
     return [
         (service_available_group, ServiceAvailableGroup),
         (shipyard_group, ShipyardGroup)

@@ -1,28 +1,54 @@
 shipyard:
-  get_actions:
+  workflow_orchestrator:list_actions:
     - admin
     - admin_ucp
     - admin_ucp_viewer
-  get_configdocs:
+  workflow_orchestrator:create_action:
+    - admin
+    - admin_ucp
+  workflow_orchestrator:get_action:
     - admin
     - admin_ucp
     - admin_ucp_viewer
-  get_workflows:
+  workflow_orchestrator:get_action_validation:
     - admin
     - admin_ucp
     - admin_ucp_viewer
-  post_configdocs:
-    - admin
-    - admin_ucp
-  get_configdocs_within_collection:
+  workflow_orchestrator:get_action_step:
     - admin
     - admin_ucp
     - admin_ucp_viewer
-  get_renderedconfigdocs:
+  workflow_orchestrator:invoke_action_control:
+    - admin
+    - admin_ucp
+  workflow_orchestrator:get_action_step_logs:
     - admin
     - admin_ucp
     - admin_ucp_viewer
-  post_commitconfigdocs:
+  workflow_orchestrator:get_configdocs:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  workflow_orchestrator:create_configdocs:
+    - admin
+    - admin_ucp
+  workflow_orchestrator:get_configdocs_status:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  workflow_orchestrator:get_renderedconfigdocs:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  workflow_orchestrator:commit_configdocs:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  workflow_orchestrator:list_workflows:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  workflow_orchestrator:get_workflow:
     - admin
     - admin_ucp
     - admin_ucp_viewer

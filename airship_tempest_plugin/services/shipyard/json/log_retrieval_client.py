@@ -14,25 +14,20 @@
 #    under the License.
 #
 
-from airship_tempest_plugin.tests.api.shipyard import base
+"""
+http://airship-shipyard.readthedocs.io/en/latest/API.html#airflow-monitoring-api
+"""
 
-from tempest import config
+from oslo_serialization import jsonutils as json
 
-from patrole_tempest_plugin import rbac_utils
-
-CONF = config.CONF
+from tempest.lib.common import rest_client
 
 
-class BaseShipyardRbacTest(rbac_utils.RbacUtilsMixin,
-                           base.BaseShipyardTest):
-    """Base class for Shipyard RBAC tests."""
+class LogRetrievalClient(rest_client.RestClient):
+    api_version = "v1.0"
 
-    @classmethod
-    def skip_checks(cls):
-        super(BaseShipyardRbacTest, cls).skip_checks()
-        cls.skip_rbac_checks()
-
-    @classmethod
-    def setup_clients(cls):
-        super(BaseShipyardRbacTest, cls).setup_clients()
-        cls.setup_rbac_utils()
+    def get_action_step_logs(self):
+        resp, body = self.get('actions/1/steps/1/logs')
+        self.expected_success(200, resp.status)
+        body = json.loads(body)
+        return rest_client.ResponseBody(resp, body)

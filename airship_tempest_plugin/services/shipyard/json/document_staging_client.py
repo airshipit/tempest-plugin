@@ -19,7 +19,6 @@ http://airship-shipyard.readthedocs.io/en/latest/API.html#document-staging-api
 """
 
 from oslo_serialization import jsonutils as json
-from six.moves.urllib import parse as urllib
 
 from tempest.lib.common import rest_client
 
@@ -36,13 +35,13 @@ from tempest.lib.common import rest_client
 class DocumentStagingClient(rest_client.RestClient):
     api_version = "v1.0"
 
-    def get_configdocs(self):
+    def get_configdocs_status(self):
         resp, body = self.get('configdocs')
         self.expected_success(200, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def post_configdocs(self):
+    def create_configdocs(self):
         url = "configdocs/1"
         post_body = json.dumps({})
         resp, body = self.post(url, post_body)
@@ -50,7 +49,7 @@ class DocumentStagingClient(rest_client.RestClient):
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def get_configdocs_within_collection(self):
+    def get_configdocs(self):
         resp, body = self.get('configdocs/1')
         self.expected_success(200, resp.status)
         body = json.loads(body)
@@ -62,7 +61,7 @@ class DocumentStagingClient(rest_client.RestClient):
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def post_commitconfigdocs(self):
+    def commit_configdocs(self):
         post_body = json.dumps({})
         resp, body = self.post("commitconfigdocs", post_body)
         self.expected_success(200, resp.status)

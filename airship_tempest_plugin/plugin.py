@@ -34,7 +34,9 @@ class AirshipRbacPlugin(plugins.TempestPlugin):
         config.register_opt_group(conf, project_config.service_available_group,
                                   project_config.ServiceAvailableGroup)
         config.register_opt_group(conf, project_config.shipyard_group,
+
                                   project_config.ShipyardGroup)
+
     def get_opt_lists(self):
         return [
             (project_config.service_available_group.name,

@@ -19,7 +19,6 @@ http://airship-shipyard.readthedocs.io/en/latest/API.html#airflow-monitoring-api
 """
 
 from oslo_serialization import jsonutils as json
-from six.moves.urllib import parse as urllib
 
 from tempest.lib.common import rest_client
 
@@ -27,8 +26,14 @@ from tempest.lib.common import rest_client
 class AirflowMonitoringClient(rest_client.RestClient):
     api_version = "v1.0"
 
-    def get_workflows(self):
+    def list_workflows(self):
         resp, body = self.get('workflows')
+        self.expected_success(200, resp.status)
+        body = json.loads(body)
+        return rest_client.ResponseBody(resp, body)
+
+    def get_workflow(self):
+        resp, body = self.get('workflows/1')
         self.expected_success(200, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
