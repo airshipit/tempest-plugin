@@ -41,9 +41,10 @@ class ActionsRbacTest(rbac_base.BaseShipyardRbacTest):
             # As this is a RBAC test, we only care about whether the role has
             # permission or not. Role permission is checked prior to validating
             # the post body, therefore we will ignore a BadRequest exception
+            # and NotFound exception
             try:
                 self.shipyard_actions_client.create_action()
-            except exceptions.BadRequest:
+            except (exceptions.BadRequest, exceptions.NotFound):
                 pass
 
     @rbac_rule_validation.action(
@@ -60,15 +61,19 @@ class ActionsRbacTest(rbac_base.BaseShipyardRbacTest):
             except exceptions.NotFound:
                 pass
 
-    ''' NEEDS REWORK AS SHIPYARD NOT DOING POLICY ENFORCEMENT FIRST
     @rbac_rule_validation.action(
         service="shipyard",
         rules=["workflow_orchestrator:get_action_validation"])
     @decorators.idempotent_id('a5156dcd-2674-4295-aa6a-d8db1bd4cf4b')
     def test_get_action_validation(self):
         with self.rbac_utils.override_role(self):
-            self.shipyard_actions_client.get_action_validation()
-    '''
+            # As this is a RBAC test, we only care about whether the role has
+            # permission or not. Role permission is checked prior to validating
+            # the post body, therefore we will ignore a NotFound exception
+            try:
+                self.shipyard_actions_client.get_action_validation()
+            except exceptions.NotFound:
+                pass
 
     @rbac_rule_validation.action(
         service="shipyard",
@@ -84,12 +89,16 @@ class ActionsRbacTest(rbac_base.BaseShipyardRbacTest):
             except exceptions.NotFound:
                 pass
 
-    ''' NEEDS REWORK AS SHIPYARD NOT DOING POLICY ENFORCEMENT FIRST
     @rbac_rule_validation.action(
         service="shipyard",
         rules=["workflow_orchestrator:invoke_action_control"])
     @decorators.idempotent_id('4f6b6564-ff1d-463a-aee8-ed2d51e2a286')
     def test_invoke_action_control(self):
         with self.rbac_utils.override_role(self):
-            self.shipyard_actions_client.invoke_action_control()
-    '''
+            # As this is a RBAC test, we only care about whether the role has
+            # permission or not. Role permission is checked prior to validating
+            # the post body, therefore we will ignore a NotFound exception
+            try:
+                self.shipyard_actions_client.invoke_action_control()
+            except exceptions.NotFound:
+                pass

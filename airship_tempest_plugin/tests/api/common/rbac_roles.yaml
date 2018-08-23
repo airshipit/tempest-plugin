@@ -43,7 +43,6 @@ shipyard:
   workflow_orchestrator:commit_configdocs:
     - admin
     - admin_ucp
-    - admin_ucp_viewer
   workflow_orchestrator:list_workflows:
     - admin
     - admin_ucp

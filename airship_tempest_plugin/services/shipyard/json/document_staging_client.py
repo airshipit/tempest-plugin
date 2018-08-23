@@ -24,9 +24,7 @@ from tempest.lib.common import rest_client
 
 # NOTE(rb560u): The following will need to be rewritten in the future if
 # functional testing is desired:
-#  - 'def post_configdocs`
-#  - `def get_configdocs_within_collection`
-#  - 'def post_commitconfigdocs'
+#  - 'def create_configdocs`
 # This initial implementation is just to meet the first use case which is RBAC
 # testing. For RBAC testing, we only need to hit the API endpoint and check
 # role permission to that API.
@@ -41,16 +39,17 @@ class DocumentStagingClient(rest_client.RestClient):
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def create_configdocs(self):
-        url = "configdocs/1"
+    def create_configdocs(self, collection_id=None):
+        url = "configdocs/%s" % collection_id
+        # Update post_body if functional testing is desired
         post_body = json.dumps({})
         resp, body = self.post(url, post_body)
         self.expected_success(201, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def get_configdocs(self):
-        resp, body = self.get('configdocs/1')
+    def get_configdocs(self, collection_id=None):
+        resp, body = self.get('configdocs/%s' % collection_id)
         self.expected_success(200, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
@@ -61,8 +60,8 @@ class DocumentStagingClient(rest_client.RestClient):
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def commit_configdocs(self):
-        post_body = json.dumps({})
+    def commit_configdocs(self, force=False, dryrun=False):
+        post_body = json.dumps({"force": force, "dryrun": dryrun})
         resp, body = self.post("commitconfigdocs", post_body)
         self.expected_success(200, resp.status)
         body = json.loads(body)

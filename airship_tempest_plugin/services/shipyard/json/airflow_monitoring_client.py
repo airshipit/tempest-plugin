@@ -32,8 +32,8 @@ class AirflowMonitoringClient(rest_client.RestClient):
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def get_workflow(self):
-        resp, body = self.get('workflows/1')
+    def get_workflow(self, workflow_id=None):
+        resp, body = self.get('workflows/%s' % workflow_id)
         self.expected_success(200, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)

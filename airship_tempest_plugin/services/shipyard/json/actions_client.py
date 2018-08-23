@@ -24,7 +24,7 @@ from tempest.lib.common import rest_client
 
 # NOTE(rb560u): The following will need to be rewritten in the future if
 # functional testing is desired:
-#  - 'def post_actions`
+#  - 'def create_action`
 # This initial implementation is just to meet the first use case which is RBAC
 # testing. For RBAC testing, we only need to hit the API endpoint and check
 # role permission to that API.
@@ -40,33 +40,35 @@ class ActionsClient(rest_client.RestClient):
         return rest_client.ResponseBody(resp, body)
 
     def create_action(self):
-        url = "actions"
+        url = 'actions'
+        # Update post_body if functional testing is desired
         post_body = json.dumps({})
         resp, body = self.post(url, post_body)
         self.expected_success(201, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def get_action(self):
-        resp, body = self.get('actions/1')
+    def get_action(self, action_id=None):
+        resp, body = self.get('actions/%s' % action_id)
         self.expected_success(200, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def get_action_validation(self):
-        resp, body = self.get('actions/1/validationdetails/1')
+    def get_action_validation(self, action_id=None, validation_id=None):
+        resp, body = \
+            self.get('actions/%s/validations/%s' % (action_id, validation_id))
         self.expected_success(200, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def get_action_step(self):
-        resp, body = self.get('actions/1/steps/1')
+    def get_action_step(self, action_id=None, step_id=None):
+        resp, body = self.get('actions/%s/steps/%s' % (action_id, step_id))
         self.expected_success(200, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def invoke_action_control(self):
-        url = "actions/1/pause"
+    def invoke_action_control(self, action_id=None, control_verb=None):
+        url = 'actions/%s/control/%s' % (action_id, control_verb)
         post_body = json.dumps({})
         resp, body = self.post(url, post_body)
         self.expected_success(202, resp.status)

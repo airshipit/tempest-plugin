@@ -26,8 +26,9 @@ from tempest.lib.common import rest_client
 class LogRetrievalClient(rest_client.RestClient):
     api_version = "v1.0"
 
-    def get_action_step_logs(self):
-        resp, body = self.get('actions/1/steps/1/logs')
+    def get_action_step_logs(self, action_id=None, step_id=None):
+        resp, body = \
+            self.get('actions/%s/steps/%s/logs' % (action_id, step_id))
         self.expected_success(200, resp.status)
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
