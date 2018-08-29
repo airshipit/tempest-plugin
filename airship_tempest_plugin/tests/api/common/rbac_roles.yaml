@@ -6,6 +6,18 @@ shipyard:
   workflow_orchestrator:create_action:
     - admin
     - admin_ucp
+  workflow_orchestrator:action_deploy_site:
+    - admin
+    - admin_ucp
+  workflow_orchestrator:action_update_site:
+    - admin
+    - admin_ucp
+  workflow_orchestrator:action_update_software:
+    - admin
+    - admin_ucp
+  workflow_orchestrator:action_redeploy_server:
+    - admin
+    - admin_ucp
   workflow_orchestrator:get_action:
     - admin
     - admin_ucp
@@ -48,6 +60,10 @@ shipyard:
     - admin_ucp
     - admin_ucp_viewer
   workflow_orchestrator:get_workflow:
+    - admin
+    - admin_ucp
+    - admin_ucp_viewer
+  workflow_orchestrator:get_site_statuses:
     - admin
     - admin_ucp
     - admin_ucp_viewer

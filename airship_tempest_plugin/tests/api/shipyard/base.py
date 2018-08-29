@@ -22,6 +22,8 @@ from airship_tempest_plugin.services.shipyard.json.document_staging_client \
     import DocumentStagingClient
 from airship_tempest_plugin.services.shipyard.json.log_retrieval_client \
     import LogRetrievalClient
+from airship_tempest_plugin.services.shipyard.json.site_statuses_client \
+    import SiteStatusesClient
 
 from tempest import config
 from tempest import test
@@ -61,6 +63,11 @@ class BaseShipyardTest(test.BaseTestCase):
             CONF.identity.region,
             CONF.shipyard.endpoint_type)
         cls.shipyard_log_retrieval_client = LogRetrievalClient(
+            cls.auth_provider,
+            CONF.shipyard.catalog_type,
+            CONF.identity.region,
+            CONF.shipyard.endpoint_type)
+        cls.shipyard_site_statuses_client = SiteStatusesClient(
             cls.auth_provider,
             CONF.shipyard.catalog_type,
             CONF.identity.region,

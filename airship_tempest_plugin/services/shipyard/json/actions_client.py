@@ -39,10 +39,10 @@ class ActionsClient(rest_client.RestClient):
         body = json.loads(body)
         return rest_client.ResponseBody(resp, body)
 
-    def create_action(self):
+    def create_action(self, action=None):
         url = 'actions'
         # Update post_body if functional testing is desired
-        post_body = json.dumps({})
+        post_body = json.dumps({"name": action})
         resp, body = self.post(url, post_body)
         self.expected_success(201, resp.status)
         body = json.loads(body)

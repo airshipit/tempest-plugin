@@ -14,12 +14,18 @@
 #    under the License.
 #
 
+import logging
+
 from airship_tempest_plugin.tests.api.shipyard.rbac import rbac_base
 
 from patrole_tempest_plugin import rbac_rule_validation
 
+from tempest import config
 from tempest.lib import decorators
 from tempest.lib import exceptions
+
+CONF = config.CONF
+LOG = logging.getLogger(__name__)
 
 
 class ActionsRbacTest(rbac_base.BaseShipyardRbacTest):
@@ -44,6 +50,84 @@ class ActionsRbacTest(rbac_base.BaseShipyardRbacTest):
             # and NotFound exception
             try:
                 self.shipyard_actions_client.create_action()
+            except (exceptions.BadRequest, exceptions.NotFound):
+                pass
+
+    @rbac_rule_validation.action(
+        service="shipyard",
+        rules=["workflow_orchestrator:action_deploy_site"])
+    @decorators.idempotent_id('e69687da-8d4e-413b-a566-c0e56b5d1087')
+    def test_deploy_site(self):
+        with self.rbac_utils.override_role(self):
+            LOG.warn("In this scenario, `workflow_orchestrator:create_action` "
+                     "is enforced first and if permission is denied, then "
+                     "there is no additional enforcement. If permission is "
+                     "allowed to `workflow_orchestrator:create_action`, then "
+                     "`workflow_orchestrator:action_deploy_site` is enforced. "
+                     " If this test fails, check permissions of both actions.")
+            try:
+                self.shipyard_actions_client.create_action(
+                    action="deploy_site")
+            # Ignore exceptions besides Forbidden
+            except (exceptions.BadRequest, exceptions.NotFound):
+                pass
+
+    @rbac_rule_validation.action(
+        service="shipyard",
+        rules=["workflow_orchestrator:action_update_site"])
+    @decorators.idempotent_id('95f3b377-99ae-4ac2-8ce3-1e52ca081abc')
+    def test_update_site(self):
+        with self.rbac_utils.override_role(self):
+            LOG.warn("In this scenario, `workflow_orchestrator:create_action` "
+                     "is enforced first and if permission is denied, then "
+                     "there is no additional enforcement. If permission is "
+                     "allowed to `workflow_orchestrator:create_action`, then "
+                     "`workflow_orchestrator:action_update_site` is enforced. "
+                     " If this test fails, check permissions of both actions.")
+            try:
+                self.shipyard_actions_client.create_action(
+                    action="update_site")
+            # Ignore exceptions besides Forbidden
+            except (exceptions.BadRequest, exceptions.NotFound):
+                pass
+
+    @rbac_rule_validation.action(
+        service="shipyard",
+        rules=["workflow_orchestrator:action_update_software"])
+    @decorators.idempotent_id('18fae927-e759-4a60-bceb-81807b9f2c10')
+    def test_update_software(self):
+        with self.rbac_utils.override_role(self):
+            LOG.warn("In this scenario, `workflow_orchestrator:create_action` "
+                     "is enforced first and if permission is denied, then "
+                     "there is no additional enforcement. If permission is "
+                     "allowed to `workflow_orchestrator:create_action`, then "
+                     "`workflow_orchestrator:action_update_software` is "
+                     "enforced. If this test fails, check permissions of both "
+                     "actions.")
+            try:
+                self.shipyard_actions_client.create_action(
+                    action="update_software")
+            # Ignore exceptions besides Forbidden
+            except (exceptions.BadRequest, exceptions.NotFound):
+                pass
+
+    @rbac_rule_validation.action(
+        service="shipyard",
+        rules=["workflow_orchestrator:action_redeploy_server"])
+    @decorators.idempotent_id('bba1eb77-c350-4c3b-b62d-3eea8bc13110')
+    def test_redeploy_server(self):
+        with self.rbac_utils.override_role(self):
+            LOG.warn("In this scenario, `workflow_orchestrator:create_action` "
+                     "is enforced first and if permission is denied, then "
+                     "there is no additional enforcement. If permission is "
+                     "allowed to `workflow_orchestrator:create_action`, then "
+                     "`workflow_orchestrator:action_redeploy_server` is "
+                     "enforced. If this test fails, check permissions of both "
+                     "actions.")
+            try:
+                self.shipyard_actions_client.create_action(
+                    action="redeploy_server")
+            # Ignore exceptions besides Forbidden
             except (exceptions.BadRequest, exceptions.NotFound):
                 pass
 
