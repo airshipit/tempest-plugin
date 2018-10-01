@@ -144,7 +144,7 @@ def no_rbac_rule_validation_decorator(physical_line, filename):
     """
     global have_rbac_decorator
 
-    if ("airship_tempest_plugin/tests/api" in filename or
+    if ("airship_tempest_plugin/tests/api/rbac" in filename or
             "airship_tempest_plugin/tests/scenario" in filename):
 
         if RULE_VALIDATION_DECORATOR.match(physical_line):
@@ -176,7 +176,7 @@ def no_rbac_test_suffix_in_test_class_name(physical_line, filename):
     """Check that RBAC class names end with "RbacTest"
     P102
     """
-    if "airship_tempest_plugin/tests/api" in filename:
+    if "airship_tempest_plugin/tests/api/rbac/" in filename:
 
         if filename.endswith('rbac_base.py'):
             return
