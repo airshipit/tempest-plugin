@@ -11,12 +11,5 @@
 # limitations under the License.
 
 - project:
-#    templates:
-#      - openstack-python-jobs
-#      - openstack-python35-jobs
-    check:
-      jobs:
-        - noop
-    gate:
-      jobs:
-        - noop
+    templates:
+      - tempest-plugin-jobs
