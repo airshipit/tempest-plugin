@@ -13,3 +13,19 @@
 - project:
     templates:
       - tempest-plugin-jobs
+    check:
+      jobs:
+        - tox-list-api-tests
+    gate:
+      jobs:
+        - tox-list-api-tests
+
+- job:
+    name: tox-list-api-tests
+    parent: tox
+    nodeset: ubuntu-xenial
+    description: |
+      Use tox to run a stestr list against the tests/api/ directory as a
+      sanity check
+    vars:
+      tox_envlist: listapitests
